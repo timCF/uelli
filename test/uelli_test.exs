@@ -6,7 +6,9 @@ defmodule UelliTest do
 	test "tc" do
 		assert :qwe == (
 			IO.puts("\nhello tc ?")
+			Uelli.makestamp |> IO.inspect
 			:timer.sleep(1000)
+			Uelli.makestamp |> IO.inspect
 			:qwe
 			) |> Uelli.tc(fn(time) -> IO.puts("hello tc #{time}\n") end)
 	end
