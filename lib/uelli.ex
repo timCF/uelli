@@ -18,11 +18,9 @@ defmodule Uelli do
 		Supervisor.start_link(children, opts)
 	end
 
-	defmacro makestamp do
-		quote location: :keep do
-			{a, b, c} = :os.timestamp
-			((a * 1000000000) + (b * 1000) + div(c,1000))
-		end
+	def makestamp do
+		{a, b, c} = :os.timestamp
+		((a * 1000000000) + (b * 1000) + div(c,1000))
 	end
 
 	defmacro tc(body, callback) do
