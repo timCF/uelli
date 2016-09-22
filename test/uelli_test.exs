@@ -16,6 +16,7 @@ defmodule UelliTest do
 	test "try_catch" do
 		assert 2 == (1+1) |> Uelli.try_catch
 		assert :error == (1 / 0) |> Uelli.try_catch |> elem(0)
+		assert :error == exit("hello") |> Uelli.try_catch |> elem(0)
 	end
 
 	test "retry" do
