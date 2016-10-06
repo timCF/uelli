@@ -65,4 +65,13 @@ defmodule Uelli do
 		end
 	end
 
+	def destruct(map = %{}) do
+		Map.delete(map, :__struct__)
+		|> Enum.reduce(%{}, fn({k,v}, acc = %{}) ->
+			Map.put(acc, k, destruct(v))
+		end)
+	end
+	def destruct(lst = [_|_]), do: Enum.map(lst, &destruct/1)
+	def destruct(some), do: some
+
 end

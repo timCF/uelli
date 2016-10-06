@@ -3,6 +3,9 @@ defmodule UelliTest do
 	doctest Uelli
 	require Uelli
 
+	defstruct foo: 123,
+						bar: "hello"
+
 	test "tc" do
 		assert :qwe == (
 			IO.puts("\nhello tc ?")
@@ -22,6 +25,11 @@ defmodule UelliTest do
 	test "retry" do
 		assert 1 == Uelli.retry( fn() -> :rand.uniform(25) end , &(&1 == 1) , :infinity )
 		assert 2 == Uelli.retry( fn() -> 2 end , &(&1 == 1) , 10 )
+	end
+
+	test "destruct" do
+		data = %UelliTest{foo: %{qwe: [1, 2, "hello",  %UelliTest{bar: [1, 2, 3]}]}}
+		assert %{foo: %{qwe: [1, 2, "hello", %{bar: [1, 2, 3], foo: 123}]}, bar: "hello"} = Uelli.destruct(data)
 	end
 
 end
