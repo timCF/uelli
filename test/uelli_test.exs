@@ -32,4 +32,35 @@ defmodule UelliTest do
 		assert %{foo: %{qwe: [1, 2, "hello", %{bar: [1, 2, 3], foo: 123}]}, bar: "hello"} = Uelli.destruct(data)
 	end
 
+	test "number-macro" do
+		assert Uelli.pos_integer(123)
+		assert not(Uelli.pos_integer(-123))
+		assert not(Uelli.pos_integer(0))
+
+		assert Uelli.pos_number(123)
+		assert not(Uelli.pos_number(-123))
+		assert not(Uelli.pos_number(0))
+
+		assert Uelli.pos_number(1.1)
+		assert not(Uelli.pos_number(-123.1))
+		assert not(Uelli.pos_number(0.0))
+
+		assert Uelli.non_neg_integer(123)
+		assert not(Uelli.non_neg_integer(-123))
+		assert Uelli.non_neg_integer(0)
+
+		assert Uelli.non_neg_number(123)
+		assert not(Uelli.non_neg_number(-123))
+		assert Uelli.non_neg_number(0)
+
+		assert Uelli.non_neg_number(1.1)
+		assert not(Uelli.non_neg_number(-123.1))
+		assert Uelli.non_neg_number(0.0)
+
+		assert not(Uelli.pos_integer("foo"))
+		assert not(Uelli.pos_number("foo"))
+		assert not(Uelli.non_neg_integer("foo"))
+		assert not(Uelli.non_neg_number("foo"))
+	end
+
 end
