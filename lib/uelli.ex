@@ -37,7 +37,6 @@ defmodule Uelli do
 				unquote(body)
 			catch
 				signal, error -> {:error, {{signal, error}, :erlang.get_stacktrace}}
-				error -> {:error, {error, :erlang.get_stacktrace}}
 			rescue
 				error -> {:error, {error, :erlang.get_stacktrace}}
 			end
