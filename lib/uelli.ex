@@ -97,4 +97,21 @@ defmodule Uelli do
 		end
 	end
 
+
+	def pmap(lst, chunk_len, threads_limit, func) when (pos_integer(chunk_len) and pos_integer(threads_limit) and is_function(func, 1)) do
+		lst = Enum.to_list(lst)
+		lst_len = length(lst)
+		case (lst_len / chunk_len) > threads_limit do
+			true -> ((lst_len / threads_limit) + 0.5)
+			false -> chunk_len
+		end
+		|> round
+		|> pmap_process(lst, func)
+	end
+	defp pmap_process(chunk_len, lst, func) do
+		:rpc.pmap({__MODULE__, :pmap_proxy}, [func], Enum.chunk(lst, chunk_len, chunk_len, []))
+		|> :lists.concat
+	end
+	def pmap_proxy(lst, func) when (is_list(lst) and is_function(func, 1)), do: Enum.map(lst, func)
+
 end

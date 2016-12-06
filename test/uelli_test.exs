@@ -63,4 +63,15 @@ defmodule UelliTest do
 		assert not(Uelli.non_neg_number("foo"))
 	end
 
+	test "pmap" do
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 1, 1, &(&1+1))
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 100, 1, &(&1+1))
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 1, 100, &(&1+1))
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 100, 100, &(&1+1))
+
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 2, 2, &(&1+1))
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 100, 2, &(&1+1))
+		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 2, 100, &(&1+1))
+	end
+
 end
