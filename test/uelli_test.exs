@@ -63,6 +63,15 @@ defmodule UelliTest do
 		assert not(Uelli.non_neg_number("foo"))
 	end
 
+	test "binary-macro" do
+		assert (Uelli.non_empty_binary("foo"))
+		assert (Uelli.non_empty_binary(<<1, 2, 3>>))
+		assert not(Uelli.non_empty_binary(1.23))
+		assert not(Uelli.non_empty_binary(123))
+		assert not(Uelli.non_empty_binary(:foo))
+		assert not(Uelli.non_empty_binary(nil))
+	end
+
 	test "pmap" do
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 1, 1, &(&1+1))
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 100, 1, &(&1+1))
