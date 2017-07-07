@@ -83,4 +83,19 @@ defmodule UelliTest do
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 2, 100, &(&1+1))
 	end
 
+	use Uelli.LazyLogger
+	test "lazylogger level warn" do
+		assert :ok = Logger.debug("debug #{self |> send(:debug) |> inspect}")
+		assert :ok = Logger.info("info #{self |> send(:info) |> inspect}")
+		assert :ok = Logger.warn("warn #{self |> send(:warn) |> inspect}")
+		assert_receive :warn
+		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}")
+		assert_receive :error
+		receive do
+			some -> raise("unexpected msg")
+		after
+			100 -> assert true
+		end
+	end
+
 end
