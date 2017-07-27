@@ -70,6 +70,10 @@ defmodule UelliTest do
 		assert not(Uelli.non_empty_binary(123))
 		assert not(Uelli.non_empty_binary(:foo))
 		assert not(Uelli.non_empty_binary(nil))
+		assert Uelli.binary_or_nil(nil)
+		assert Uelli.binary_or_nil("foo")
+		assert Uelli.binary_or_nil("")
+		assert not(Uelli.non_empty_binary(1))
 	end
 
 	test "pmap" do

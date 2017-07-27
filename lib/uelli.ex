@@ -103,6 +103,12 @@ defmodule Uelli do
 		end
 	end
 
+	defmacro binary_or_nil(some) do
+		quote location: :keep do
+			(is_binary(unquote(some)) or (unquote(some) == nil))
+		end
+	end
+
 	def pmap(lst, chunk_len, threads_limit, func) when (pos_integer(chunk_len) and pos_integer(threads_limit) and is_function(func, 1)) do
 		lst = Enum.to_list(lst)
 		lst_len = length(lst)
