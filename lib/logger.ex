@@ -5,24 +5,24 @@ defmodule Uelli.LazyLogger do
       require Uelli.LazyLogger, as: Logger
     end
   end
-  defmacro error(code) do
+  defmacro error(code, metadata \\ []) do
     quote do
-      Elixir.Logger.error(fn -> unquote(code) end)
+      Elixir.Logger.error(fn -> {unquote(code), unquote(metadata)} end)
     end
   end
-  defmacro warn(code) do
+  defmacro warn(code, metadata \\ []) do
     quote do
-      Elixir.Logger.warn(fn -> unquote(code) end)
+      Elixir.Logger.warn(fn -> {unquote(code), unquote(metadata)} end)
     end
   end
-  defmacro info(code) do
+  defmacro info(code, metadata \\ []) do
     quote do
-      Elixir.Logger.info(fn -> unquote(code) end)
+      Elixir.Logger.info(fn -> {unquote(code), unquote(metadata)} end)
     end
   end
-  defmacro debug(code) do
+  defmacro debug(code, metadata \\ []) do
     quote do
-      Elixir.Logger.debug(fn -> unquote(code) end)
+      Elixir.Logger.debug(fn -> {unquote(code), unquote(metadata)} end)
     end
   end
 end

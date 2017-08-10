@@ -95,6 +95,14 @@ defmodule UelliTest do
 		assert_receive :warn
 		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}")
 		assert_receive :error
+
+		assert :ok = Logger.debug("debug #{self |> send(:debug) |> inspect}", [metadata_test: "metadata_debug"])
+		assert :ok = Logger.info("info #{self |> send(:info) |> inspect}", [metadata_test: "metadata_info"])
+		assert :ok = Logger.warn("warn #{self |> send(:warn) |> inspect}", [metadata_test: "metadata_warn"])
+		assert_receive :warn
+		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}", [metadata_test: "metadata_error"])
+		assert_receive :error
+
 		receive do
 			some -> raise("unexpected msg")
 		after

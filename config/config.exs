@@ -28,4 +28,10 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
-config :logger, level: :warn
+config :logger,
+  backends: [:console],
+  level: :warn
+
+config :logger, :console,
+  format: "\n$date $time [$level] $metadata$message\n",
+  metadata: [:metadata_test]
