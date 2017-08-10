@@ -89,6 +89,9 @@ defmodule UelliTest do
 
 	use Uelli.LazyLogger
 	test "lazylogger level warn" do
+
+		rnd = :rand.uniform()
+
 		assert :ok = Logger.debug("debug #{self |> send(:debug) |> inspect}")
 		assert :ok = Logger.info("info #{self |> send(:info) |> inspect}")
 		assert :ok = Logger.warn("warn #{self |> send(:warn) |> inspect}")
@@ -96,11 +99,11 @@ defmodule UelliTest do
 		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}")
 		assert_receive :error
 
-		assert :ok = Logger.debug("debug #{self |> send(:debug) |> inspect}", [metadata_test: "metadata_debug"])
-		assert :ok = Logger.info("info #{self |> send(:info) |> inspect}", [metadata_test: "metadata_info"])
-		assert :ok = Logger.warn("warn #{self |> send(:warn) |> inspect}", [metadata_test: "metadata_warn"])
+		assert :ok = Logger.debug("debug #{self |> send(:debug) |> inspect}", [metadata_test: "metadata_debug_#{rnd}"])
+		assert :ok = Logger.info("info #{self |> send(:info) |> inspect}", [metadata_test: "metadata_info_#{rnd}"])
+		assert :ok = Logger.warn("warn #{self |> send(:warn) |> inspect}", [metadata_test: "metadata_warn_#{rnd}"])
 		assert_receive :warn
-		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}", [metadata_test: "metadata_error"])
+		assert :ok = Logger.error("error #{self |> send(:error) |> inspect}", [metadata_test: "metadata_error_#{rnd}"])
 		assert_receive :error
 
 		receive do
