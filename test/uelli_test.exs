@@ -87,6 +87,14 @@ defmodule UelliTest do
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 2, 100, &(&1+1))
 	end
 
+	test "match_regex" do
+		assert Uelli.match_regex("qwerty", ~r/qwe/)
+		assert Uelli.match_regex("myp4ssw0rd", ~r/^[a-z0-9_-]{6,18}$/)
+
+		refute Uelli.match_regex("qwerty", ~r/Qwe/)
+		refute Uelli.match_regex("mypa$$w0rd", ~r/^[a-z0-9_-]{6,18}$/)
+	end
+
 	use Uelli.LazyLogger
 	test "lazylogger level warn" do
 
@@ -112,5 +120,4 @@ defmodule UelliTest do
 			100 -> assert true
 		end
 	end
-
 end
