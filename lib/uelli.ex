@@ -125,4 +125,9 @@ defmodule Uelli do
 	end
 	def pmap_proxy(lst, func) when (is_list(lst) and is_function(func, 1)), do: Enum.map(lst, func)
 
+	defmacro match_regex(some, regex) do
+		quote location: :keep do
+			Regex.match?(unquote(regex), unquote(some))
+		end
+	end
 end
