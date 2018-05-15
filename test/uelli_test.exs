@@ -25,6 +25,7 @@ defmodule UelliTest do
 	test "retry" do
 		assert 1 == Uelli.retry( fn() -> :rand.uniform(25) end , &(&1 == 1) , :infinity )
 		assert 2 == Uelli.retry( fn() -> 2 end , &(&1 == 1) , 10 )
+    assert 2 == Uelli.retry( fn() -> 2 end , &(&1 == 2) , 10 )
 	end
 
 	test "destruct" do

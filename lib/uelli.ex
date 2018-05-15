@@ -20,7 +20,7 @@ defmodule Uelli do
 
 	def makestamp do
 		{a, b, c} = :os.timestamp
-		((a * 1000000000) + (b * 1000) + div(c,1000))
+		((a * 1_000_000_000) + (b * 1000) + div(c, 1000))
 	end
 
 	defmacro tc(body, callback) do
@@ -66,7 +66,7 @@ defmodule Uelli do
 
 	def destruct(map = %{}) do
 		Map.delete(map, :__struct__)
-		|> Enum.reduce(%{}, fn({k,v}, acc = %{}) ->
+		|> Enum.reduce(%{}, fn({k, v}, acc = %{}) ->
 			Map.put(acc, k, destruct(v))
 		end)
 	end
