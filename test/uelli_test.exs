@@ -1,7 +1,8 @@
 defmodule UelliTest do
-	use ExUnit.Case
+	use ExUnit.Case, async: false
 	doctest Uelli
 	require Uelli
+  import Mock
 
 	defstruct foo: 123,
 						bar: "hello"
@@ -111,6 +112,21 @@ defmodule UelliTest do
 			some -> raise("unexpected msg")
 		after
 			100 -> assert true
+		end
+	end
+
+	test "ensure_loaded?" do
+		assert Uelli.ensure_loaded?(Elixir.Uelli)
+	end
+
+	test "load_all_modules" do
+		with_mock Uelli, [:passthrough], [ensure_loaded?: fn
+			Elixir.Uelli.LazyLogger ->
+				false
+			_ ->
+				true
+		end] do
+			assert [_ | _] = Uelli.load_all_modules()
 		end
 	end
 

@@ -71,6 +71,8 @@ defmodule Uelli.Mixfile do
       {:ex_doc, "~> 0.18",     only: [:dev, :test], runtime: false},
       {:credo, "~> 0.8",       only: [:dev, :test], runtime: false},
       {:boilex, "~> 0.2",      only: [:dev, :test], runtime: false},
+      # test tools
+      {:mock, "~> 0.3.0",      only: [:dev, :test], runtime: false},
     ]
   end
 end
