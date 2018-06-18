@@ -18,6 +18,39 @@ defmodule Uelli do
 		Supervisor.start_link(children, opts)
 	end
 
+	@doc """
+	Loads all accessible modules, and returns list of loaded modules
+	"""
+
+	def load_all_modules do
+		:code.get_path
+		|> Enum.flat_map(fn(dir) ->
+			dir
+			|> File.ls!
+			|> Stream.filter(&(String.ends_with?(&1, ".beam")))
+			|> Stream.map(&(Regex.replace(~r/(\.beam)$/, &1, fn(_, _) -> "" end) |> String.to_atom))
+			|> Enum.map(fn(module) ->
+				module
+				|> __MODULE__.ensure_loaded?
+				|> case do
+					true ->
+						:ok
+					false ->
+						{:module, ^module} =
+							"#{dir}/#{module}"
+							|> String.to_charlist
+							|> :code.load_abs
+				end
+				module
+			end)
+		end)
+	end
+
+	def ensure_loaded?(module) when is_atom(module) do
+		module
+		|> Code.ensure_loaded?
+	end
+
 	def makestamp do
 		{a, b, c} = :os.timestamp
 		((a * 1_000_000_000) + (b * 1000) + div(c, 1000))
