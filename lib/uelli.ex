@@ -68,10 +68,11 @@ defmodule Uelli do
 		quote location: :keep do
 			try do
 				unquote(body)
-			catch
-				signal, error -> {:error, {{signal, error}, :erlang.get_stacktrace}}
 			rescue
 				error -> {:error, {error, :erlang.get_stacktrace}}
+			catch
+				error -> {:error, {error, :erlang.get_stacktrace}}
+				signal, error -> {:error, {{signal, error}, :erlang.get_stacktrace}}
 			end
 		end
 	end
