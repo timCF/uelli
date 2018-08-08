@@ -69,10 +69,10 @@ defmodule Uelli do
 			try do
 				unquote(body)
 			rescue
-				error -> {:error, {error, :erlang.get_stacktrace}}
+				error -> {:error, {error, __STACKTRACE__}}
 			catch
-				error -> {:error, {error, :erlang.get_stacktrace}}
-				signal, error -> {:error, {{signal, error}, :erlang.get_stacktrace}}
+				error -> {:error, {error, __STACKTRACE__}}
+				signal, error -> {:error, {{signal, error}, __STACKTRACE__}}
 			end
 		end
 	end
@@ -154,7 +154,7 @@ defmodule Uelli do
 		|> pmap_process(lst, func)
 	end
 	defp pmap_process(chunk_len, lst, func) do
-		:rpc.pmap({__MODULE__, :pmap_proxy}, [func], Enum.chunk(lst, chunk_len, chunk_len, []))
+		:rpc.pmap({__MODULE__, :pmap_proxy}, [func], Enum.chunk_every(lst, chunk_len, chunk_len, []))
 		|> :lists.concat
 	end
 	def pmap_proxy(lst, func) when (is_list(lst) and is_function(func, 1)), do: Enum.map(lst, func)

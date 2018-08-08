@@ -12,7 +12,7 @@ defmodule Uelli.Mixfile do
       # excoveralls
       test_coverage:      [tool: ExCoveralls],
       preferred_cli_env:  [
-        "coveralls":            :test,
+        coveralls:              :test,
         "coveralls.travis":     :test,
         "coveralls.circle":     :test,
         "coveralls.semaphore":  :test,
@@ -68,8 +68,8 @@ defmodule Uelli.Mixfile do
       # development tools
       {:excoveralls, "~> 0.8", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 0.5",    only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.18",     only: [:dev, :test], runtime: false},
-      {:credo, "~> 0.8",       only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.19",     only: [:dev, :test], runtime: false},
+      {:credo, "~> 0.9",       only: [:dev, :test], runtime: false},
       {:boilex, "~> 0.2",      only: [:dev, :test], runtime: false},
       # test tools
       {:mock, "~> 0.3.0",      only: [:dev, :test], runtime: false},
