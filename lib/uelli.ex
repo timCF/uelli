@@ -107,6 +107,12 @@ defmodule Uelli do
 	def destruct(lst = [_|_]), do: Enum.map(lst, &destruct/1)
 	def destruct(some), do: some
 
+	defmacro non_nil_atom(some) do
+		quote do
+			((unquote(some) != nil) and is_atom(unquote(some)))
+		end
+	end
+
 	defmacro pos_integer(some) do
 		quote location: :keep do
 			(is_integer(unquote(some)) and (unquote(some) > 0))

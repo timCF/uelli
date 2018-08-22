@@ -78,6 +78,14 @@ defmodule UelliTest do
 		assert not(Uelli.non_empty_binary(1))
 	end
 
+  test "atom-macro" do
+    assert not(Uelli.non_nil_atom(nil))
+    assert not(Uelli.non_nil_atom(""))
+    assert not(Uelli.non_nil_atom(0))
+    assert Uelli.non_nil_atom(Enum)
+    assert Uelli.non_nil_atom(:hello)
+  end
+
 	test "pmap" do
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 1, 1, &(&1+1))
 		assert [2,3,4,5,6] == Uelli.pmap([1,2,3,4,5], 100, 1, &(&1+1))
