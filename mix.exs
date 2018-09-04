@@ -36,7 +36,7 @@ defmodule Uelli.Mixfile do
       description:  "Elixir utilities and custom guards",
       package: [
         licenses: ["Apache 2.0"],
-        files: ["lib", "priv", "mix.exs", "README*", "VERSION*"],
+        files: ["lib", "mix.exs", "README*", "VERSION*"],
         maintainers: ["Ilja Tkachuk aka timCF"],
         links: %{
           "GitHub" => "https://github.com/timCF/uelli",
