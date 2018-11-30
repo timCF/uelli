@@ -12,7 +12,7 @@ defmodule Uelli.Mixfile do
       # excoveralls
       test_coverage:      [tool: ExCoveralls],
       preferred_cli_env:  [
-        "coveralls":            :test,
+        coveralls:              :test,
         "coveralls.travis":     :test,
         "coveralls.circle":     :test,
         "coveralls.semaphore":  :test,
