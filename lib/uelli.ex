@@ -119,6 +119,12 @@ defmodule Uelli do
 		end
 	end
 
+	defmacro pos_float(some) do
+		quote location: :keep do
+			(is_float(unquote(some)) and (unquote(some) > 0))
+		end
+	end
+
 	defmacro pos_number(some) do
 		quote location: :keep do
 			(is_number(unquote(some)) and (unquote(some) > 0))
@@ -128,6 +134,12 @@ defmodule Uelli do
 	defmacro non_neg_integer(some) do
 		quote location: :keep do
 			(is_integer(unquote(some)) and (unquote(some) >= 0))
+		end
+	end
+
+	defmacro non_neg_float(some) do
+		quote location: :keep do
+			(is_float(unquote(some)) and (unquote(some) >= 0))
 		end
 	end
 
